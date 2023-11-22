@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
+import 'logic.dart';
+
 class Add extends StatefulWidget {
   const Add({Key? key});
 
@@ -56,11 +58,10 @@ class _AddState extends State<Add> {
           const Spacer(),
           ElevatedButton(
               onPressed: () {
-
                 // Check if both name and url are not empty
                 if (name.text.isNotEmpty && url.text.isNotEmpty) {
                   addData(name.text, url.text);
-                  Navigator.pop(context,true);
+                  Navigator.pop(context, true);
                 } else {
                   // Display an error or prompt the user to fill in both fields
                   print('Please fill in both name and url');
@@ -71,29 +72,5 @@ class _AddState extends State<Add> {
         ],
       ),
     );
-  }
-
-  Future<void> addData(String name, String url) async {
-    Map<String, dynamic> dataToSend = {
-      'name': name,
-      'url': url,
-    };
-
-    final response = await http.post(
-      Uri.parse("http://192.168.1.69:8000/api/projects"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(dataToSend),
-    );
-
-    if (response.statusCode == 201) {
-        print('Data added successfully');
-
-      // You may want to fetch users again after adding new data
-    } else {
-      print('Failed to add data. Error: ${response.statusCode}');
-      print('Response: ${response.body}');
-    }
   }
 }

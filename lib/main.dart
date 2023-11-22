@@ -4,14 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ProjectData(),
-      child: MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
